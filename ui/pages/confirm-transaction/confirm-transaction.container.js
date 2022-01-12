@@ -32,10 +32,7 @@ const mapStateToProps = (state, ownProps) => {
     ? unapprovedTxs[id] || unconfirmedTransactions[0]
     : {};
 
-  const {
-    id: transactionId,
-    type,
-  } = transaction;
+  const { id: transactionId, type } = transaction;
 
   // const assetDetails = await getAssetDetails(tokenAddress, data);
 

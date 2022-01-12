@@ -4,9 +4,9 @@ import {
   conversionUtil,
   multiplyCurrencies,
 } from '../../../shared/modules/conversion.utils';
+import { getTokenStandardAndDetails } from '../../store/actions';
 import * as util from './util';
 import { formatCurrency } from './confirm-tx.util';
-import { getTokenStandardAndDetails } from '../../store/actions';
 import { getTokenData } from './transactions.util';
 
 const DEFAULT_SYMBOL = '';
@@ -260,9 +260,8 @@ export async function getAssetDetails(
         tokenId: existingCollectible?.tokenId,
         standard: tokenDetails?.standard,
       };
-    } else {
-      return tokenDetails;
     }
+    return tokenDetails;
   } else if (tokenDetails?.standard === 'ERC20') {
     const existingToken = existingTokens.find(({ address }) =>
       util.isEqualCaseInsensitive(tokenAddress, address),

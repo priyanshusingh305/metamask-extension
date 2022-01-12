@@ -32,12 +32,12 @@ import {
   removePollingTokenFromAppState,
   getAssetDetails,
 } from '../../store/actions';
-import ConfTx from './conf-tx';
 import { getTokenData } from '../../helpers/utils/transactions.util';
 import {
   calcTokenAmount,
   getTokenValueParam,
 } from '../../helpers/utils/token-util';
+import ConfTx from './conf-tx';
 
 export default class ConfirmTransaction extends Component {
   static contextTypes = {
@@ -189,11 +189,7 @@ export default class ConfirmTransaction extends Component {
         <Route
           exact
           path={`${CONFIRM_TRANSACTION_ROUTE}/:id?${CONFIRM_APPROVE_PATH}`}
-          render={() => (
-            <ConfirmApprove
-              {...this.props}
-            />
-          )}
+          render={() => <ConfirmApprove {...this.props} />}
         />
         <Route
           exact

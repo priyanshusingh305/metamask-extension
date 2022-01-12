@@ -32,10 +32,10 @@ import AdvancedGasFeePopover from '../../components/app/advanced-gas-fee-popover
 import EditGasFeePopover from '../../components/app/edit-gas-fee-popover';
 import EditGasPopover from '../../components/app/edit-gas-popover/edit-gas-popover.component';
 import Loading from '../../components/ui/loading-screen';
-import { getCustomTxParamsData } from './confirm-approve.util';
-import ConfirmApproveContent from './confirm-approve-content';
 import { ERC20, ERC1155, ERC721 } from '../../helpers/constants/common';
 import { useAssetDetails } from '../../hooks/useAssetDetails';
+import { getCustomTxParamsData } from './confirm-approve.util';
+import ConfirmApproveContent from './confirm-approve-content';
 
 const isAddressLedgerByFromAddress = (address) => (state) => {
   return isAddressLedger(state, address);
@@ -151,7 +151,7 @@ export default function ConfirmApprove({ transaction }) {
     tokensText = assetName;
   }
 
-  //TODO It should be okay if this is undefined?
+  // TODO It should be okay if this is undefined?
   const tokenBalance = userBalance
     ? calcTokenAmount(userBalance, decimals).toString(10)
     : '';

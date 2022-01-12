@@ -43,7 +43,7 @@ export function useAssetDetails(tokenAddress, userAddress, transactionData) {
     tokenAmount;
 
   if (currentAsset) {
-      const tokenData = getTokenData(transactionData);
+    const tokenData = getTokenData(transactionData);
     assetStandard = currentAsset?.standard;
     assetAddress = currentAsset?.address;
     tokenSymbol = currentAsset?.symbol;
