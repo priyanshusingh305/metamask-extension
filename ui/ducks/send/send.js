@@ -59,6 +59,7 @@ import {
   removePollingTokenFromAppState,
   isCollectibleOwner,
   getTokenStandardAndDetails,
+  showModal,
 } from '../../store/actions';
 import { setCustomGasLimit } from '../gas/gas.duck';
 import {
@@ -1434,7 +1435,7 @@ export function updateSendAsset({ type, details }) {
   return async (dispatch, getState) => {
     const state = getState();
     let { balance, error } = state.send.asset;
-    let userAddress = state.send.account.address ?? getSelectedAddress(state);
+    const userAddress = state.send.account.address ?? getSelectedAddress(state);
     if (type === ASSET_TYPES.TOKEN) {
       if (details) {
         if (details.standard === undefined) {
@@ -1442,10 +1443,9 @@ export function updateSendAsset({ type, details }) {
             details.address,
             userAddress,
           );
-
-          //TODO
           if (standard === ERC721 || standard === ERC1155) {
             // eject from the send flow and pop a modal telling the user to go to the NFT tab
+            dispatch(showModal({ name: 'CONVERT_TOKEN_TO_NFT' }));
             error = 'TEST ERROR';
           }
 
@@ -1459,6 +1459,7 @@ export function updateSendAsset({ type, details }) {
         // check to take a decent amount of time, so we display a loading
         // indication so that that immediate feedback is displayed to the user.
         if (details.standard === ERC20) {
+          error = null;
           await dispatch(showLoadingIndication());
           balance = await getERC20Balance(details, userAddress);
         }
@@ -1482,6 +1483,7 @@ export function updateSendAsset({ type, details }) {
         }
       }
       if (isCurrentOwner) {
+        error = null;
         balance = '0x1';
       } else {
         throw new Error(
@@ -1489,6 +1491,7 @@ export function updateSendAsset({ type, details }) {
         );
       }
     } else {
+      error = null;
       // if changing to native currency, get it from the account key in send
       // state which is kept in sync when accounts change.
       balance = state.send.account.balance;
